@@ -16,7 +16,7 @@ public class User {
     private long created_at;
     private long updated_at;
     private long last_login;
-
+    
     public Integer getId() {
         return id;
     }

@@ -24,6 +24,11 @@ public class UserController {
         userRepository.save(n);
         return "Saved";
     }
+    @GetMapping(path = "/login")
+    public @ResponseBody Iterable<User> login() {
+        // This returns a JSON or XML with the users
+        return userRepository.findAll();
+    }
 
     @GetMapping(path = "/all")
     public @ResponseBody Iterable<User> getAllUsers() {
