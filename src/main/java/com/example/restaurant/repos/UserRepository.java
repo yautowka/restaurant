@@ -1,6 +1,7 @@
-package com.example.restaurant.db;
+package com.example.restaurant.repos;
 
 
+import com.example.restaurant.Domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 

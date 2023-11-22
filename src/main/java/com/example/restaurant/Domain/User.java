@@ -1,4 +1,4 @@
-package com.example.restaurant.db;
+package com.example.restaurant.Domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,7 +16,7 @@ public class User {
     private long created_at;
     private long updated_at;
     private long last_login;
-    
+
     public Integer getId() {
         return id;
     }

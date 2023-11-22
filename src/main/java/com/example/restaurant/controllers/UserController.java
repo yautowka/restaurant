@@ -1,5 +1,7 @@
-package com.example.restaurant.db;
+package com.example.restaurant.controllers;
 
+import com.example.restaurant.Domain.User;
+import com.example.restaurant.repos.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
