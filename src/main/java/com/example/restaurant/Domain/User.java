@@ -15,6 +15,16 @@ public class User {
     private String password_hash;
     private long created_at;
     private long updated_at;
+
+    public User() {
+    }
+
+    public User(String login, String password_hash, long created_at) {
+        this.login = login;
+        this.password_hash = password_hash;
+        this.created_at = created_at;
+    }
+
     private long last_login;
 
     public Integer getId() {

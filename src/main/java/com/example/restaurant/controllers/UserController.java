@@ -19,10 +19,7 @@ public class UserController {
         // @RequestParam means it is a parameter from the GET or POST request
         User user_from_db = userRepository.findByLogin(login);
         if (user_from_db != null) return "Уже есть такой логин";
-        User n = new User();
-        n.setLogin(login);
-        n.setPassword_hash(password);
-        n.setCreated_at(System.currentTimeMillis());
+        User n = new User(login, password, System.currentTimeMillis());
         userRepository.save(n);
         return "Saved";
     }
