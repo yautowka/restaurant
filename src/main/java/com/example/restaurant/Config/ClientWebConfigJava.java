@@ -1,4 +1,4 @@
-package com.example.restaurant.WebMVC;
+package com.example.restaurant.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
