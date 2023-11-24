@@ -1,19 +1,24 @@
 package com.example.restaurant.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
+    @Column(name="login", length=225, nullable=false, unique=true)
+    @NotBlank(message = "You must input login")
     private String login;
 
+    @Column(name="password_hash", length=225, nullable=false)
+    @NotBlank(message = "You must input password")
     private String password_hash;
+    @Column(name="created_at", nullable=true)
     private long created_at;
+    @Column(name="updated_at", nullable=true)
     private long updated_at;
 
     public User() {
