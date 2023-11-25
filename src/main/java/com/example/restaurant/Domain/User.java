@@ -16,10 +16,15 @@ public class User {
     @Column(name="password_hash", length=225, nullable=false)
     @NotBlank(message = "You must input password")
     private String password_hash;
+    @Transient
+    @NotBlank(message = "You must confirm password")
+    private String password_hash2;
     @Column(name="created_at", nullable=true)
     private long created_at;
     @Column(name="updated_at", nullable=true)
     private long updated_at;
+    @Column(name="last_login", nullable=true)
+    private long last_login;
 
     public User() {
     }
@@ -29,8 +34,6 @@ public class User {
         this.password_hash = password_hash;
         this.created_at = created_at;
     }
-
-    private long last_login;
 
     public Integer getId() {
         return id;
