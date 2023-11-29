@@ -6,4 +6,5 @@ CREATE TABLE user
     created_at    VARCHAR(255) NOT NULL,
     updated_at    int,
     last_login    int
+        UNIQUE (login)
 );
