@@ -2,9 +2,13 @@ package com.example.restaurant.Domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 
 
 @Entity
+@Validated
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

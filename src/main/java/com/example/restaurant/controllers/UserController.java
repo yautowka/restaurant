@@ -23,8 +23,6 @@ public class UserController {
             , @RequestParam @NotBlank(message = "You must input password") java.lang.CharSequence password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        User user_from_db = userRepository.findByLogin(login);
-        if (user_from_db != null) return "Уже есть такой логин";
         User n = new User(login, passwordEncoder.encode(password), System.currentTimeMillis());
         userRepository.save(n);
         return "Saved";
