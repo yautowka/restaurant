@@ -4,6 +4,7 @@ import com.example.restaurant.Domain.User;
 import com.example.restaurant.repos.UserRepository;
 import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping(path = "/signup") // Map ONLY POST Requests
+    @ResponseStatus(HttpStatus.CREATED)
     public @ResponseBody String addNewUser(@RequestParam @NotBlank(message = "You must input login") String login
             , @RequestParam @NotBlank(message = "You must input password") java.lang.CharSequence password) {
         // @ResponseBody means the returned String is the response, not a view name
@@ -28,12 +30,14 @@ public class UserController {
         return "Saved";
     }
     @GetMapping(path = "/login")
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Iterable<User> login() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
 
     @GetMapping(path = "/all")
+    @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Iterable<User> getAllUsers() {
         // This returns a JSON or XML with the users
         return userRepository.findAll();
