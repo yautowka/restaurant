@@ -7,23 +7,23 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-    @Column(name="login", length=225, nullable=false, unique=true)
+    @Column(name = "login", length = 225, nullable = false, unique = true)
     @NotBlank(message = "You must input login")
     private String login;
 
-    @Column(name="password_hash", length=225, nullable=false)
+    @Column(name = "password_hash", length = 225, nullable = false)
     @NotBlank(message = "You must input password")
     private String password_hash;
-    @Transient
-    @NotBlank(message = "You must confirm password")
-    private String password_hash2;
-    @Column(name="created_at", nullable=true)
+    //    @Transient
+//    @NotBlank(message = "You must confirm password")
+//    private String password_hash2;
+    @Column(name = "created_at", nullable = true)
     private long created_at;
-    @Column(name="updated_at", nullable=true)
+    @Column(name = "updated_at", nullable = true)
     private long updated_at;
-    @Column(name="last_login", nullable=true)
+    @Column(name = "last_login", nullable = true)
     private long last_login;
 
     public User() {
