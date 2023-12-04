@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,10 +26,11 @@ public class UserController {
             , @RequestParam @NotBlank(message = "You must input password") java.lang.CharSequence password) {
         // @ResponseBody means the returned String is the response, not a view name
         // @RequestParam means it is a parameter from the GET or POST request
-        User n = new User(login, passwordEncoder.encode(password), System.currentTimeMillis());
+        User n = new User(login, passwordEncoder.encode(password));
         userRepository.save(n);
         return "Saved";
     }
+
     @GetMapping(path = "/login")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Iterable<User> login() {

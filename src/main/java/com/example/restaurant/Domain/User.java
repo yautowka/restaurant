@@ -33,10 +33,10 @@ public class User {
     public User() {
     }
 
-    public User(String login, String password_hash, long created_at) {
+    public User(String login, String password_hash) {
         this.login = login;
         this.password_hash = password_hash;
-        this.created_at = created_at;
+        this.created_at = System.currentTimeMillis();
     }
 
     public Integer getId() {
