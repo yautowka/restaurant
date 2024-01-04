@@ -1,19 +1,30 @@
 package com.example.restaurant.controllers;
 
 import com.example.restaurant.Domain.User;
+import com.example.restaurant.entity.AuthenticationResponse;
+import com.example.restaurant.entity.LoginForm;
+import com.example.restaurant.entity.RegistrationForm;
 import com.example.restaurant.repos.UserRepository;
-import jakarta.validation.constraints.NotBlank;
+import com.example.restaurant.service.AuthenticationService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/api/vi/auth") // This means URL's start with /demo (after Application path)
-@Validated
+//@Validated
+@RequiredArgsConstructor
 public class UserController {
+    private final AuthenticationService authService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired // This means to get the bean called userRepository
@@ -21,27 +32,19 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping(path = "/signup") // Map ONLY POST Requests
-    @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody String addNewUser(@RequestParam @NotBlank(message = "You must input login") String login
-            , @RequestParam @NotBlank(message = "You must input password") java.lang.CharSequence password) {
-        // @ResponseBody means the returned String is the response, not a view name
-        // @RequestParam means it is a parameter from the GET or POST request
-        User n = new User(login, passwordEncoder.encode(password));
-        userRepository.save(n);
-        return "Saved";
+    public @ResponseBody ResponseEntity<AuthenticationResponse> addNewUser(RegistrationForm form) {
+        return ResponseEntity.ok(authService.signup(form));
     }
 
     @GetMapping(path = "/login")
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Iterable<User> login() {
-        // This returns a JSON or XML with the users
-        return userRepository.findAll();
+    public @ResponseBody ResponseEntity<AuthenticationResponse> login(LoginForm form) {
+        return ResponseEntity.ok(authService.login(form));
     }
 
     @GetMapping(path = "/all")
+//    @PreAuthorize("hasRole(‘ADMIN’)")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Iterable<User> getAllUsers() {
-        // This returns a JSON or XML with the users
         return userRepository.findAll();
     }
 }

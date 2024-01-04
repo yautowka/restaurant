@@ -2,88 +2,80 @@ package com.example.restaurant.Domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.Collection;
+import java.util.List;
 
+@Data
 @Entity
-@Validated
-public class User {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+//@Validated
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     @Column(name = "login", length = 225, nullable = false, unique = true)
     @NotBlank(message = "You must input login")
     private String login;
-
     @Column(name = "password_hash", length = 225, nullable = false)
     @NotBlank(message = "You must input password")
-    private String password_hash;
-    //    @Transient
-//    @NotBlank(message = "You must confirm password")
-//    private String password_hash2;
-    @Column(name = "created_at", nullable = true)
+    private String password;
+    @Column(name = "created_at")
     private long created_at;
-    @Column(name = "updated_at", nullable = true)
+    @Column(name = "updated_at")
     private long updated_at;
-    @Column(name = "last_login", nullable = true)
+    @Column(name = "last_login")
     private long last_login;
-
-    public User() {
-    }
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public User(String login, String password_hash) {
         this.login = login;
-        this.password_hash = password_hash;
+        this.password = password_hash;
         this.created_at = System.currentTimeMillis();
+        role = Role.USER;
     }
 
-    public Integer getId() {
-        return id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public String getLogin() {
+    @Override
+    public String getUsername() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setPassword_hash(String password_hash) {
-        this.password_hash = password_hash;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public long getCreated_at() {
-        return created_at;
-    }
-
-    public void setCreated_at(long created_at) {
-        this.created_at = created_at;
-    }
-
-    public long getUpdated_at() {
-        return updated_at;
-    }
-
-    public void setUpdated_at(long updated_at) {
-        this.updated_at = updated_at;
-    }
-
-    public long getLast_login() {
-        return last_login;
-    }
-
-    public void setLast_login(long last_login) {
-        this.last_login = last_login;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
+
