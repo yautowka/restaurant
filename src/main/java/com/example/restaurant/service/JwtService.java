@@ -20,7 +20,6 @@ public class JwtService {
 
     public String extractLogin(String token) {
         return extractClaim(token, Claims::getSubject);
-
     }
 
     public String generateToken(UserDetails userDetails) {

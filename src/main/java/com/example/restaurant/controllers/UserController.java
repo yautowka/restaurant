@@ -1,9 +1,10 @@
 package com.example.restaurant.controllers;
 
-import com.example.restaurant.Domain.User;
+import com.example.restaurant.models.User;
 import com.example.restaurant.entity.AuthenticationResponse;
 import com.example.restaurant.entity.LoginForm;
 import com.example.restaurant.entity.RegistrationForm;
+import com.example.restaurant.entity.SimpleResponse;
 import com.example.restaurant.repos.UserRepository;
 import com.example.restaurant.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController // This means that this class is a Controller
@@ -32,7 +30,8 @@ public class UserController {
     private UserRepository userRepository;
 
     @PostMapping(path = "/signup") // Map ONLY POST Requests
-    public @ResponseBody ResponseEntity<AuthenticationResponse> addNewUser(RegistrationForm form) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public @ResponseBody ResponseEntity<SimpleResponse> addNewUser(RegistrationForm form) {
         return ResponseEntity.ok(authService.signup(form));
     }
 

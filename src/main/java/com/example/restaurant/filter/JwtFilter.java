@@ -1,4 +1,4 @@
-package com.example.restaurant.config;
+package com.example.restaurant.filter;
 
 import com.example.restaurant.service.JwtService;
 import jakarta.servlet.FilterChain;

@@ -1,15 +1,15 @@
 package com.example.restaurant.repos;
 
 
-import com.example.restaurant.Domain.User;
+import com.example.restaurant.models.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
-public interface UserRepository extends CrudRepository<User, Long> {
-    public Optional<User> findByLogin(String login);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByLogin(String login);
 
 }
