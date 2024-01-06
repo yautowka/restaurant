@@ -28,12 +28,11 @@ public class User implements UserDetails {
     @Column(name = "password_hash", length = 225, nullable = false)
     @NotBlank(message = "You must input password")
     private String password;
-    @Column(name = "created_at", nullable = true)
-//    @Null
+    @Column(name = "created_at")
     private LocalDateTime created_at;
-    @Column(name = "updated_at", nullable = true)
+    @Column(name = "updated_at")
     private LocalDateTime updated_at;
-    @Column(name = "last_login", nullable = true)
+    @Column(name = "last_login")
     private LocalDateTime last_login;
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
