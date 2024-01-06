@@ -97,15 +97,6 @@
                     </image>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.flywaydb</groupId>
-                <artifactId>flyway-maven-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    <url>jdbc:mysql://localhost:3306/pet_project</url>-->
-<!--                    <user>root</user>-->
-<!--                    <password>babenko</password>-->
-<!--                </configuration>-->
-            </plugin>
         </plugins>
     </build>
 
