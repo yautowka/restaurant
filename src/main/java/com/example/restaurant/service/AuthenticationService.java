@@ -8,6 +8,9 @@ import com.example.restaurant.entity.RegistrationForm;
 import com.example.restaurant.entity.SimpleResponse;
 import com.example.restaurant.repos.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -47,5 +50,10 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
+    }
+
+    public Page<User> findAll(int offset, int size) {
+        Pageable pageable = PageRequest.of(offset, size);
+        return userRepository.findAll(pageable);
     }
 }
