@@ -1,6 +1,8 @@
 package com.example.restaurant.models;
 
+import com.example.restaurant.filter.JsonIncludeRestaurantsFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -43,8 +45,8 @@ public class User implements UserDetails {
     private Role role;
     //    @Column(name = "restaurants")
 //    @ElementCollection
-//    @JsonInclude(value = JsonInclude.Include.CUSTOM,
-//            valueFilter = JsonIncludeRestaurantsFilter.class)
+    @JsonInclude(value = JsonInclude.Include.CUSTOM,
+            valueFilter = JsonIncludeRestaurantsFilter.class)
     @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Restaurant> restaurants = new ArrayList<>();
 
