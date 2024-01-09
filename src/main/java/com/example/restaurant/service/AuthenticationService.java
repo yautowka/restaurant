@@ -47,6 +47,8 @@ public class AuthenticationService {
         var user = userRepository.findByLogin(form.getLogin())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
+        user.setLast_login(LocalDateTime.now());
+        userRepository.save(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
