@@ -26,6 +26,7 @@ public class Restaurant {
     private String name;
     @NotBlank(message = "You must input owner id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JsonIgnore
     private User owner;
     @Column(name = "isActive")
     private Boolean isActive;
@@ -35,4 +36,8 @@ public class Restaurant {
     private String city;
     @Column(name = "address")
     private String address;
+    @Column(name = "lat")
+    private Double lat;
+    @Column(name = "lng")
+    private Double lng;
 }
