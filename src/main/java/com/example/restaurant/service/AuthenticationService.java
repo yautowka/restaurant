@@ -51,9 +51,4 @@ public class AuthenticationService {
                 .token(jwtToken)
                 .build();
     }
-
-    public Page<User> findAll(int offset, int size) {
-        Pageable pageable = PageRequest.of(offset, size);
-        return userRepository.findAll(pageable);
-    }
 }
