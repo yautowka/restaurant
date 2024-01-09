@@ -3,7 +3,6 @@ package com.example.restaurant.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Null;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -20,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Table(name = "users")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -40,6 +41,12 @@ public class User implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
+    //    @Column(name = "restaurants")
+//    @ElementCollection
+//    @JsonInclude(value = JsonInclude.Include.CUSTOM,
+//            valueFilter = JsonIncludeRestaurantsFilter.class)
+    @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Restaurant> restaurants = new ArrayList<>();
 
     public User(String login, String password_hash) {
         this.login = login;
@@ -48,6 +55,14 @@ public class User implements UserDetails {
         role = Role.ROLE_USER;
     }
 
+    public void addRestaurant(Restaurant restaurant) {
+        restaurants.add(restaurant);
+        restaurant.setOwner(this);
+    }
+    public void removeRestaurant(Restaurant restaurant) {
+        restaurants.remove(restaurant);
+        restaurant.setOwner(null);
+    }
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
