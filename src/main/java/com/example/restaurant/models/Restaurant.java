@@ -24,14 +24,14 @@ public class Restaurant {
     @Column(name = "name", length = 225, nullable = false, unique = true)
     @NotBlank(message = "You must input name")
     private String name;
-    @NotBlank(message = "You must input owner id")
+//    @NotBlank(message = "You must input owner id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonIgnore
     private User owner;
-    @Column(name = "isActive")
+    @Column(name = "is_active")
     private Boolean isActive;
     @Column(name = "opening_hours")
-    private String opening_hours;
+    private String openingHours;
     @Column(name = "city")
     private String city;
     @Column(name = "address")
