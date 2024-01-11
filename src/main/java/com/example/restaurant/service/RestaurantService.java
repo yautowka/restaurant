@@ -57,18 +57,8 @@ public class RestaurantService {
                 .orElseThrow();
     }
 
-    public String createRestaurant(HttpServletRequest request, RestaurantDto newRestaurantData) {
+    public String createRestaurant(HttpServletRequest request, Restaurant newRestaurant) {
         User user = getUser(request);
-        Restaurant newRestaurant = Restaurant
-                .builder()
-                .name(newRestaurantData.getName())
-                .isActive(newRestaurantData.getIsActive())
-                .openingHours(newRestaurantData.getOpeningHours())
-                .city(newRestaurantData.getCity())
-                .address(newRestaurantData.getAddress())
-                .lat(newRestaurantData.getLat())
-                .lng(newRestaurantData.getLng())
-                .build();
         newRestaurant.setOwner(user);
         restaurantRepository.save(newRestaurant);
         return "New restaurant created";

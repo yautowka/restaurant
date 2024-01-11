@@ -34,8 +34,8 @@ public class RestaurantForOwnerController {
     @PostMapping(path = "/create")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('OWNER')")
-    public @ResponseBody ResponseEntity<String> createRestaurant(HttpServletRequest request, RestaurantDto newData) {
-        return ResponseEntity.ok(restaurantService.createRestaurant(request, newData));
+    public @ResponseBody ResponseEntity<String> createRestaurant(HttpServletRequest request, Restaurant newRestaurant) {
+        return ResponseEntity.ok(restaurantService.createRestaurant(request, newRestaurant));
     }
 
     @PostMapping(path = "/update/{id}")
