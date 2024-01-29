@@ -1,8 +1,6 @@
 package com.example.restaurant.models;
 
-import com.example.restaurant.filter.JsonIncludeRestaurantsFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
@@ -12,7 +10,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -43,27 +40,12 @@ public class User implements UserDetails {
     @Column(name = "role")
     @Enumerated(EnumType.STRING)
     private Role role;
-    //    @Column(name = "restaurants")
-//    @ElementCollection
-    @JsonInclude(value = JsonInclude.Include.CUSTOM,
-            valueFilter = JsonIncludeRestaurantsFilter.class)
-    @OneToMany(mappedBy = "owner",cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Restaurant> restaurants = new ArrayList<>();
 
     public User(String login, String password_hash) {
         this.login = login;
         this.password = password_hash;
         this.created_at = LocalDateTime.now();
         role = Role.ROLE_USER;
-    }
-
-    public void addRestaurant(Restaurant restaurant) {
-        restaurants.add(restaurant);
-        restaurant.setOwner(this);
-    }
-    public void removeRestaurant(Restaurant restaurant) {
-        restaurants.remove(restaurant);
-        restaurant.setOwner(null);
     }
     @Override
     @JsonIgnore
