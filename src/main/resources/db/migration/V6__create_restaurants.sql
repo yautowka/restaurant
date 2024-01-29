@@ -3,7 +3,7 @@ CREATE TABLE restaurants
 (
     id            INT PRIMARY key AUTO_INCREMENT,
     name          varchar(255) NOT NULL,
-    owner_id      int          NOT NULL,
+    owner_id      INT          NOT NULL,
     is_active     bit(1)       NOT NULL DEFAULT 0,
     opening_hours varchar(255) NOT NULL,
     city          varchar(255) NOT NULL,

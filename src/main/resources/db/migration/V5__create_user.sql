@@ -6,6 +6,6 @@ CREATE TABLE users
     created_at    datetime(6)  NOT NULL,
     updated_at    datetime(6),
     last_login    datetime(6),
-    role          enum ('ROLE_ADMIN','ROLE_OWNER','ROLE_USER'),
+    role          enum ('ROLE_ADMIN','ROLE_OWNER','ROLE_USER', 'ROLE_SUPPORT'),
     UNIQUE (login)
 );

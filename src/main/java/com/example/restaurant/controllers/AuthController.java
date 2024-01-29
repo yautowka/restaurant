@@ -24,7 +24,7 @@ public class AuthController {
         return ResponseEntity.ok(authService.signup(form));
     }
 
-    @GetMapping(path = "/login")
+    @PostMapping(path = "/login")
     public @ResponseBody ResponseEntity<AuthenticationResponse> login(LoginForm form) {
         return ResponseEntity.ok(authService.login(form));
     }
