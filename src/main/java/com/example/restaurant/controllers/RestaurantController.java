@@ -12,23 +12,23 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController // This means that this class is a Controller
-@RequestMapping(path = "/api/v1/owner/restaurant") // This means URL's start with /demo (after Application path)
+@RequestMapping(path = "/api/v1/restaurant") // This means URL's start with /demo (after Application path)
 @RequiredArgsConstructor
-public class RestaurantForOwnerController {
+public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping(path = "/index")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('OWNER')")
-    public @ResponseBody ResponseEntity<Page<Restaurant>> getAllOwnersRestaurants(HttpServletRequest request, int offset, int size) {
-        return ResponseEntity.ok(restaurantService.getAllOwnersRestaurants(request, offset, size));
+    @PreAuthorize("hasRole('OWNER') || hasRole('SUPPORT')")
+    public @ResponseBody ResponseEntity<Page<Restaurant>> getAllRestaurants(HttpServletRequest request, int offset, int size) {
+        return ResponseEntity.ok(restaurantService.getAllRestaurants(request, offset, size));
     }
 
     @GetMapping(path = "/view/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('OWNER')")
-    public @ResponseBody ResponseEntity<Restaurant> getViewIfOwner(HttpServletRequest request, @PathVariable Long id) {
-        return ResponseEntity.ok(restaurantService.getViewIfOwner(request, id));
+    @PreAuthorize("hasRole('OWNER') || hasRole('SUPPORT')")
+    public @ResponseBody ResponseEntity<Restaurant> getView(HttpServletRequest request, @PathVariable Long id) {
+        return ResponseEntity.ok(restaurantService.getView(request, id));
     }
 
     @PostMapping(path = "/create")
@@ -40,9 +40,8 @@ public class RestaurantForOwnerController {
 
     @PostMapping(path = "/update/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('OWNER')")
+    @PreAuthorize("hasRole('OWNER') || hasRole('SUPPORT')")
     public @ResponseBody ResponseEntity<String> updateRestaurant(HttpServletRequest request, Restaurant restaurantUpdated) {
-//        return ResponseEntity.ok("da");
         return ResponseEntity.ok(restaurantService.updateRestaurant(request, restaurantUpdated));
     }
 
